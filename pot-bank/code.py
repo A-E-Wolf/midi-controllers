@@ -10,16 +10,19 @@ import adafruit_midi
 from adafruit_midi.control_change import ControlChange
 
 # constants
-MIDI_CHANNEL = 0       # MIDI channel 1
-THRESH = 400   # Ignore changes smaller than this
-SAMPLES = 32
+MIDI_CHANNEL = 0    # MIDI channel 1
+SAMPLES = 32        # collect and average sample values
+
+# 16-bit ADC produces values ranging 0 to 65,535
+# scale to midi range 0 - 127
+# threshold value of 512 = 1 midi step
+THRESH = 400        # Ignore changes smaller than this
 
 # USB MIDI
 midi = adafruit_midi.MIDI(
     midi_out=usb_midi.ports[1],
     out_channel=MIDI_CHANNEL
 )
-
 
 # selection switch pins
 s0 = digitalio.DigitalInOut(board.GP4)
